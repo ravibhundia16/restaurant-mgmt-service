@@ -3,7 +3,7 @@ let express = require('express');
 let path = require('path');
 let cookieParser = require('cookie-parser');
 let logger = require('morgan');
-const testRoute = require('./routes/get')
+const restaurantDataRoute = require('./routes/getRestaurantDataRoute')
 const db = require('./middleware/db_connect')
 
 let app = express();
@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/api/moweb', testRoute)
+app.use('/api/restaurant', restaurantDataRoute)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
