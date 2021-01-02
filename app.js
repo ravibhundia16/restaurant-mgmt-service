@@ -8,6 +8,8 @@ const db = require('./middleware/db_connect')
 
 let app = express();
 
+global.db = db
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
