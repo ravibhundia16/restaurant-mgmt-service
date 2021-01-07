@@ -5,6 +5,7 @@ let cookieParser = require('cookie-parser');
 let logger = require('morgan');
 const restaurantDataRoute = require('./routes/getRestaurantDataRoute')
 const db = require('./middleware/db_connect')
+const urlCons = require('./constants/url-constants')
 
 let app = express();
 
@@ -19,7 +20,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/api/restaurant', restaurantDataRoute)
+app.use(urlCons.PARAM_API_PREFIX, restaurantDataRoute)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
