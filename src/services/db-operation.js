@@ -2,6 +2,10 @@
 
 const dbCons = require('../constants/db-constants')
 const dbOperationCons = require('../constants/db-operation-constants')
+const mongoose = require('mongoose')
+const mongo = require('mongodb').MongoClient
+const url = 'mongodb+srv://dbavb786:Avb@90333@taskmanager-e8bqy.mongodb.net/moweb?retryWrites=true&w=majority'
+mongoose.Promise = global.Promise
 
 const getQuery = (fieldName, operation, value) => {
   let query = {}
@@ -179,11 +183,11 @@ const getLookUpPipeline = (from, variable, pipeline, as) => {
   return json
 }
 
-const getData = async (query, projection, schema) => {
-  const response = await schema.find(query, projection).then(res => {
+const getData = async (query, projection, collection) => {
+  const response = await collection.find(query, projection).then(res => {
     return res
   }).catch(error => {
-    return error
+    throw error
   })
   return response
 }

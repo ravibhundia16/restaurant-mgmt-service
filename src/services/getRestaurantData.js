@@ -8,7 +8,7 @@ const dbOp = require('./db-operation')
 const restaurantSchema = require('../models/restaurants')
 const cusineSchema = require('../models/cusines')
 const foodItemSchema = require('../models/food_items')
-const { responseGenerator } = require('../constants/responseGenerator')
+const { responseGenerator, errorGenerator } = require('../constants/utils')
 
 const getRestaurantData = async (collection, query) => {
   try {
@@ -26,12 +26,12 @@ const getRestaurantData = async (collection, query) => {
     }
     const response = await dbOp.getData(query, dbOp.getCommonProjection(), schema)
     if (response && Array.isArray(response) && response.length > 0) {
-      return response
+      return responseGenerator(response, msgCons.CODE_SERVER_OK, msgCons.MSG_SUCCESS_FETCHED_DATA, false)
     } else {
-      return []
+      return responseGenerator(response, msgCons.CODE_NO_CONTENT_AVAILABLE, msgCons.MSG_ERROR_NO_DATA, false)
     }
   } catch (error) {
-    throw error
+    return errorGenerator(error, msgCons.CODE_INTERNAL_SERVER_ERROR, msgCons.MSG_ERROR_FETCH_DATA, true)
   }
 }
 
