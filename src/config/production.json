@@ -1,0 +1,6 @@
+{
+  "port": 8081,
+  "app": {
+    "name": "restaurant-mgmt-service"
+  }
+}
