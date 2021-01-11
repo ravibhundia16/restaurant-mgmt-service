@@ -1,8 +1,21 @@
 const mongoose = require('mongoose');
 
-const cuisinesSchema = new mongoose.Schema({
+const cusinesSchema = new mongoose.Schema({
+  name: {
+    type: String
+  },
+  status: {
+    type: Number
+  },
+  created_on: {
+    type: Date
+  },
+  cusine_imge: {
+    type: String
+  },
+  _id: false
 }, {
   timestamps: true
 });
 
-module.exports = mongoose.model('cuisines', cuisinesSchema);
+module.exports = mongoose.model('cusines', cusinesSchema);

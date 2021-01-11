@@ -5,7 +5,7 @@ const dbOperationCons = require('../constants/db-operation-constants')
 const msCons = require('../constants/ms-constants')
 const msgCons = require('../constants/msg-constants')
 const dbOp = require('./db-operation')
-const restaurantSchema = require('../models/restaurants')
+const restaurantsDetailsSchema = require('../models/restaurants_details')
 const cusineSchema = require('../models/cusines')
 const foodItemSchema = require('../models/food_items')
 const { responseGenerator, errorGenerator } = require('../constants/utils')
@@ -14,8 +14,8 @@ const getRestaurantData = async (collection, query) => {
   try {
     let schema
     switch (collection) {
-      case dbCons.COLLECTION_RESTAURANTS:
-        schema = restaurantSchema
+      case dbCons.COLLECTION_RESTAURANTS_DETAILS:
+        schema = restaurantsDetailsSchema
         break;
       case dbCons.COLLECTION_CUSINE:
         schema = cusineSchema

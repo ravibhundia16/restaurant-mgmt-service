@@ -2,5 +2,25 @@
   "port": 8081,
   "app": {
     "name": "restaurant-mgmt-service"
+  },
+  "database": {
+    "host": "mongodb+srv://rbhundia:rbhundia16@ravibhundia.vo1al.mongodb.net/restaurants?retryWrites=true&w=majority",
+    "default_db_name": "restaurants",
+    "defaults": {
+      "createdBy": "SYSTEM",
+      "updatedBy": "SYSTEM"
+    },
+    "default_org_name": "",
+    "authentication": true,
+    "fetch_secrets": false,
+    "user": "rbhundia",
+    "pass": "rbhundia16",
+    "auth_source": "admin",
+    "mongo_options": {
+      "useCreateIndex": true,
+      "useNewUrlParser": true,
+      "useUnifiedTopology": true,
+      "useFindAndModify": false
+    }
   }
 }

@@ -13,7 +13,7 @@ module.exports = {
   // RESTAURANTS
   // /////////////////////////
 
-  COLLECTION_RESTAURANTS: 'restaurants',
+  COLLECTION_RESTAURANTS_DETAILS: 'restaurants_details',
   FIELD_STATUS: 'status',
   FIELD_CUSINES: 'cusines',
   FIELD_LATITUDE: 'latitude',
