@@ -14,5 +14,8 @@ module.exports = {
   RES_THE_MILKEYBAR_CAFE: 'The Milkybar Cafe',
   RES_MELA_RESTAURANT: 'Mela Restaurant',
   RES_THE_BACKYARD: 'The Backyard',
-  RES_THE_BAR_IN_DAR: 'The Bar in Dar'
+  RES_THE_BAR_IN_DAR: 'The Bar in Dar',
+
+  FIELD_RESTAURANT_DATA: 'restaurantData',
+  FIELD_RESTAURANT_VERIFIED: 'restaurant_verified'
 }

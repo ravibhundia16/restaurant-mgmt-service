@@ -58,6 +58,7 @@ const getUnwindedResponse = (unwindObject) => {
 const getGroupObject = (groupObject) => {
   let json = {}
   json[dbOperationCons.FIELD_GROUP] = groupObject
+  return json
 }
 
 const getOrderedJson = (value) => {

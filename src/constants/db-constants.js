@@ -11,7 +11,7 @@ module.exports = {
   DATABASE_RESTAURANTS: 'restaurants',
 
   // /////////////////////////
-  // RESTAURANTS
+  // RESTAURANTS DETAILS
   // /////////////////////////
 
   COLLECTION_RESTAURANTS_DETAILS: 'restaurants_details',
