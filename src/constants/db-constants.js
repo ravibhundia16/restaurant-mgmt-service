@@ -8,6 +8,7 @@ module.exports = {
   FIELD_CREATED_ON: 'created_on',
   FIELD_IS_DELETED: 'is_deleted',
   FIELD__V: '_v',
+  DATABASE_RESTAURANTS: 'restaurants',
 
   // /////////////////////////
   // RESTAURANTS
@@ -56,5 +57,36 @@ module.exports = {
   FIELD_ITEM_TYPE: 'item_type',
   FIELD_MAX_QUANTITY: 'max_quantity',
   FIELD_QUANTITY: 'quantity',
-  FIELD_IMAGE_URL: 'image_url'
+  FIELD_IMAGE_URL: 'image_url',
+
+  // /////////////////////////
+  // FOOD ITEMS RESTAURANTS
+  // /////////////////////////
+
+  COLLECTION_FOODITEMS_RESTAURANTS: 'fooditems_restaurants',
+  FIELD_FOODITEM_NAME: 'fooditem_name',
+  FIELD_COST: 'cost',
+  FIELD_MAIN_PRICE: 'main_price',
+  FIELD_SPECIAL_PRICE: 'special_price',
+  FIELD_DISCOUNT: 'discount',
+  FIELD_DISCOUNT_PERCENT: 'discount_percent',
+  FIELD_FOOD_ITEM_ID: 'food_item_id',
+  FIELD_CUSINE_ID: 'cusine_id',
+  FIELD_CUSINE_NAME: 'cusine_name',
+  FIELD_RESTAURANT_ID: 'restaurant_id',
+  FIELD_RESTAURANT_NAME: 'restaurant_name',
+  FIELD_DATE: 'date',
+
+  // /////////////////////////
+  // CUSTOMIZATION GROUP 
+  // /////////////////////////
+
+  COLLECTION_CUSTOMIZATION_GROUPS: 'customization_groups',
+  FILED_POS_GROUP_ID: 'pos_group_id',
+  FIELD_GROUP_NAME: 'group_name',
+  FIELD_GROUP_TYPE: 'group_type',
+  FIELD_GROUP_TYPE_CODE: 'group_type_code',
+  FIELD_SELECT_MAX: 'select_max',
+  FIELD_GROUP_VALUES: 'group_values',
+  FIELD_PRODUCT_ID: 'product_id'
 }

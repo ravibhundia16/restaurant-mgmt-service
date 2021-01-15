@@ -1,6 +1,11 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
 
-const restaurantsDetailsSchema = new mongoose.Schema({
+const restaurantsDetailsSchema = new Schema({
+  id: {
+    type: Number,
+    required: true
+  },
   status: {
     type: Number
   },
@@ -20,7 +25,8 @@ const restaurantsDetailsSchema = new mongoose.Schema({
     type: String
   },
   is_resturant_verified: {
-    type: Number
+    type: Number,
+    required: true
   },
   created_on: {
     type: Date
@@ -38,7 +44,8 @@ const restaurantsDetailsSchema = new mongoose.Schema({
     type: Number
   },
   name: {
-    type: String
+    type: String,
+    required: true
   },
   email: {
     type: String
@@ -53,7 +60,7 @@ const restaurantsDetailsSchema = new mongoose.Schema({
     type: String
   },
   preparation_time_id: {
-    type: String
+    type: Number
   },
   open_time: {
     type: String
@@ -67,6 +74,6 @@ const restaurantsDetailsSchema = new mongoose.Schema({
   _id: false
 }, {
   timestamps: true
-});
+})
 
 module.exports = mongoose.model('restaurants_details', restaurantsDetailsSchema);

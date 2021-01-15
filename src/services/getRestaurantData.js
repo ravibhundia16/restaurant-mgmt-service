@@ -5,10 +5,13 @@ const dbOperationCons = require('../constants/db-operation-constants')
 const msCons = require('../constants/ms-constants')
 const msgCons = require('../constants/msg-constants')
 const dbOp = require('./db-operation')
-const restaurantsDetailsSchema = require('../models/restaurants_details')
-const cusineSchema = require('../models/cusines')
-const foodItemSchema = require('../models/food_items')
 const { responseGenerator, errorGenerator } = require('../constants/utils')
+const commonRepositories = require('./common-repositories')
+const cusineSchema = require('../models/cusines')
+const customizationGroupsSchema = require('../models/customization_groups')
+const foodItemsSchema = require('../models/food_items')
+const foodItemsRestaurantsSchema = require('../models/fooditems_restaurants')
+const restaurantsDetailsSchema = require('../models/restaurants_details')
 
 const getRestaurantData = async (collection, query) => {
   try {
@@ -21,10 +24,16 @@ const getRestaurantData = async (collection, query) => {
         schema = cusineSchema
         break;
       case dbCons.COLLECTION_FOOD_ITEMS:
-        schema = foodItemSchema
+        schema = foodItemsSchema
+        break;
+      case dbCons.COLLECTION_FOODITEMS_RESTAURANTS:
+        schema = foodItemsRestaurantsSchema
+        break;
+      case dbCons.COLLECTION_CUSTOMIZATION_GROUPS:
+        schema = customizationGroupsSchema
         break;
     }
-    const response = await dbOp.getData(query, dbOp.getCommonProjection(), schema)
+    const response = await commonRepositories.getData(query, dbOp.getCommonProjection(), schema)
     if (response && Array.isArray(response) && response.length > 0) {
       return responseGenerator(response, msgCons.CODE_SERVER_OK, msgCons.MSG_SUCCESS_FETCHED_DATA, false)
     } else {

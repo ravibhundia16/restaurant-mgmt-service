@@ -183,14 +183,7 @@ const getLookUpPipeline = (from, variable, pipeline, as) => {
   return json
 }
 
-const getData = async (query, projection, collection) => {
-  const response = await collection.find(query, projection).then(res => {
-    return res
-  }).catch(error => {
-    throw error
-  })
-  return response
-}
+
 
 module.exports = {
   getQuery,
@@ -217,6 +210,5 @@ module.exports = {
   getKeyValuePair,
   replaceRootToNewRoot,
   getAggregationJson,
-  getLookUpPipeline,
-  getData
+  getLookUpPipeline
 }

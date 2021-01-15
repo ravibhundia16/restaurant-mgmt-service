@@ -1,6 +1,7 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
 
-const foodItemSchema = new mongoose.Schema({
+const foodItemSchema = new Schema({
   pos_manu_id: {
     type: Number
   },
@@ -26,10 +27,10 @@ const foodItemSchema = new mongoose.Schema({
     type: String
   },
   max_quantity: {
-    type: Date
+    type: Number
   },
   quantity: {
-    type: Date
+    type: Number
   },
   image_url: {
     type: String
@@ -38,17 +39,17 @@ const foodItemSchema = new mongoose.Schema({
     type: String
   },
   is_deleted: {
-    type: Date
+    type: Boolean
   },
   status: {
-    type: Date
+    type: Number
   },
   cusine_id: {
-    type: String
+    type: Number
   },
   _id: false
 }, {
   timestamps: true
-});
+})
 
 module.exports = mongoose.model('food_items', foodItemSchema);
