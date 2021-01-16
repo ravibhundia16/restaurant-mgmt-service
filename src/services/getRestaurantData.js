@@ -23,9 +23,9 @@ const getRestaurantData = async (data, restaurantName, cusineName) => {
     let schema
     let query
     switch (data) {
-      case dbCons.COLLECTION_RESTAURANTS_DETAILS:
+      case dbCons.COLLECTION_RESTAURANT_DETAILS:
         schema = foodItemsRestaurantsSchema
-        query = queryForRestaurantDetails()
+        query = queryForRestaurantDetails(restaurantName, cusineName)
         break;
       case dbCons.COLLECTION_CUSINE:
         schema = foodItemsRestaurantsSchema
@@ -43,10 +43,13 @@ const getRestaurantData = async (data, restaurantName, cusineName) => {
   }
 }
 
-function queryForRestaurantDetails() {
+function queryForRestaurantDetails(restaurantName, cusineName) {
   const queryArray = []
+  if (restaurantName) {
+    queryArray.push(dbOp.getMatchedResult(getMatchQueryForRestaurantName(restaurantName)))
+  }
   queryArray.push(dbOp.getGroupObject(getGroupQueryForRestaurant()))
-  queryArray.push(dbOp.getLookUpPipeline(dbCons.COLLECTION_RESTAURANTS_DETAILS, getLetObjectForRestaurant(), getPipelineArrayForRestaurant(), msCons.FIELD_RESTAURANT_DATA))
+  queryArray.push(dbOp.getLookUpPipeline(dbCons.COLLECTION_RESTAURANT_DETAILS, getLetObjectForRestaurant(), getPipelineArrayForRestaurant(), msCons.FIELD_RESTAURANT_DATA))
   queryArray.push(dbOp.getUnwindedResponse('$' + msCons.FIELD_RESTAURANT_DATA))
   queryArray.push(dbOp.getProjectedField(getFinalProjectionForRestautantData()))
   return queryArray
@@ -57,6 +60,12 @@ function queryForCusineDetails(restaurantName, cusineName) {
   queryArray.push(dbOp.getMatchedResult(getMatchQueryForFoodItems(restaurantName, cusineName)))
   queryArray.push(dbOp.getProjectedField(projectionForFoodItems()))
   return queryArray
+}
+
+function getMatchQueryForRestaurantName(restaurantName) {
+  const json = {}
+  json[dbCons.FIELD_RESTAURANT_NAME] = restaurantName
+  return json
 }
 
 function getGroupQueryForRestaurant() {
@@ -118,13 +127,16 @@ function getFinalProjectionForRestautantData() {
 function getMatchQueryForFoodItems(restaurantName, cusineName) {
   const json = {}
   json[dbCons.FIELD_RESTAURANT_NAME] = restaurantName
-  json[dbCons.FIELD_CUSINE_NAME] = cusineName
+  if (cusineName) {
+    json[dbCons.FIELD_CUSINE_NAME] = cusineName
+  }
   return json
 }
 
 function projectionForFoodItems() {
   const json = {}
   json[dbCons.FIELD__ID] = false
+  json[dbCons.FIELD_CUSINE_NAME] = true
   json[dbCons.FIELD_FOODITEM_NAME] = true
   json[dbCons.FIELD_COST] = true
   json[dbCons.FIELD_DESCRIPTION] = true

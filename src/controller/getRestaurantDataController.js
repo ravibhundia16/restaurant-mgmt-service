@@ -2,24 +2,21 @@
 
 const msgCons = require('../constants/msg-constants')
 const dbCons = require('../constants/db-constants')
-const { responseGenerator, errorGenerator } = require('../constants/utils')
-const { getRestaurantData } = require('../services/getRestaurantData')
+const {
+  responseGenerator,
+  errorGenerator
+} = require('../constants/utils')
+const {
+  getRestaurantData
+} = require('../services/getRestaurantData')
 
-const getRestaurantDataController = async(req, res) => {
+const getRestaurantDataController = async (req, res) => {
   try {
     let restaurantName, cusineName
     const data = req.query.data
     if (data && data != null) {
-      switch (data) {
-        case dbCons.COLLECTION_RESTAURANTS_DETAILS:
-          restaurantName = false
-          cusineName =  false
-        break;
-        case dbCons.COLLECTION_CUSINE:
-          restaurantName = req.body.restaurant_name
-          cusineName = req.body.cusine_name
-        break;
-      }
+      restaurantName = req.body.restaurant_name ? req.body.restaurant_name : false
+      cusineName = req.body.cusine_name ? req.body.cusine_name : false
       const response = await getRestaurantData(data, restaurantName, cusineName)
       if (response[msgCons.FIELD_STATUS_CODE] === msgCons.CODE_SERVER_OK || response[msgCons.FIELD_STATUS_CODE] === msgCons.CODE_NO_CONTENT_AVAILABLE) {
         res.status(msgCons.CODE_SERVER_OK).json(response)

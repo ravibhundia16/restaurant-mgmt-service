@@ -14,7 +14,7 @@ module.exports = {
   // RESTAURANTS DETAILS
   // /////////////////////////
 
-  COLLECTION_RESTAURANTS_DETAILS: 'restaurants_details',
+  COLLECTION_RESTAURANT_DETAILS: 'restaurant_details',
   FIELD_STATUS: 'status',
   FIELD_CUSINES: 'cusines',
   FIELD_LATITUDE: 'latitude',
@@ -27,12 +27,12 @@ module.exports = {
   FIELD_NAME: 'name',
   FIELD_EMAIL: 'email',
   FILD_MOBILE_NUMBER: 'mobile_number',
-  FIELD_RESTAURANT_LOCATION: 'resturant_location',
+  FIELD_RESTAURANT_LOCATION: 'restaurant_location',
   FIELD_TILL_NUMBER: 'till_number',
   FIELD_PREPARATION_TIME_ID: 'preparation_time_id',
   FIELD_OPEN_TIME: 'open_time',
   FIELD_CLOSE_TIME: 'close_time',
-  FILED_RESTAURANT_IMAGE: 'resturant_image',
+  FILED_RESTAURANT_IMAGE: 'restaurant_image',
   FIELD_DINE_IN: 'dine_in',
   FIELD_MAX_PEOPLE: 'max_people',
 

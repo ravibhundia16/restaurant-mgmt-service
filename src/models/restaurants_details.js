@@ -24,7 +24,7 @@ const restaurantsDetailsSchema = new Schema({
   miles: {
     type: String
   },
-  is_resturant_verified: {
+  is_restaurant_verified: {
     type: Number,
     required: true
   },
@@ -53,7 +53,7 @@ const restaurantsDetailsSchema = new Schema({
   mobile_number: {
     type: Number
   },
-  resturant_location: {
+  restaurant_location: {
     type: String
   },
   till_number: {
@@ -68,7 +68,7 @@ const restaurantsDetailsSchema = new Schema({
   close_time: {
     type: String
   },
-  resturant_image: {
+  restaurant_image: {
     type: String
   },
   _id: false
