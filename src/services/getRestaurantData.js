@@ -11,28 +11,20 @@ const msCons = require('../constants/ms-constants')
 const msgCons = require('../constants/msg-constants')
 const dbOp = require('./db-operation')
 const { responseGenerator, errorGenerator } = require('../constants/utils')
-const commonRepositories = require('./common-repositories')
-const cusineSchema = require('../models/cusines')
-const customizationGroupsSchema = require('../models/customization_groups')
-const foodItemsSchema = require('../models/food_items')
-const foodItemsRestaurantsSchema = require('../models/fooditems_restaurants')
-const restaurantsDetailsSchema = require('../models/restaurants_details')
+const { commonRepository } = require('@ravibhundia/mongoose-db-repositories')
 
 const getRestaurantData = async (data, restaurantName, cusineName) => {
   try {
-    let schema
     let query
     switch (data) {
       case dbCons.COLLECTION_RESTAURANT_DETAILS:
-        schema = foodItemsRestaurantsSchema
         query = queryForRestaurantDetails(restaurantName, cusineName)
         break;
       case dbCons.COLLECTION_CUSINE:
-        schema = foodItemsRestaurantsSchema
         query = queryForCusineDetails(restaurantName, cusineName)
         break;
     }
-    const response = await commonRepositories.getDataWithAggregate(query, schema)
+    const response = await commonRepository.getDataWithAggregate(query, dbCons.COLLECTION_FOODITEMS_RESTAURANTS, dbCons.DATABASE_RESTAURANTS)
     if (response && Array.isArray(response) && response.length > 0) {
       return responseGenerator(response, msgCons.CODE_SERVER_OK, msgCons.MSG_SUCCESS_FETCHED_DATA, false)
     } else {

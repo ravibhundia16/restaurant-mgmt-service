@@ -4,12 +4,17 @@ let path = require('path')
 let cookieParser = require('cookie-parser')
 let logger = require('morgan')
 const config = require('config')
-const db = require('./middleware/db-connect')
 const urlCons = require('./constants/url-constants')
 const restaurantDataRoute = require('./routes/getRestaurantDataRoute')
 const insertDataIntoDbRoute = require('./routes/insertDataIntoDbRoute')
 
 let app = express();
+
+// Intialize DB Connection
+const dbUtil = require('./middleware/db')(config.database)
+dbUtil.connect()
+
+global.db = dbUtil
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

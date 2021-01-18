@@ -3,8 +3,6 @@
 const dbCons = require('../constants/db-constants')
 const dbOperationCons = require('../constants/db-operation-constants')
 const mongoose = require('mongoose')
-const mongo = require('mongodb').MongoClient
-const url = 'mongodb+srv://dbavb786:Avb@90333@taskmanager-e8bqy.mongodb.net/moweb?retryWrites=true&w=majority'
 mongoose.Promise = global.Promise
 
 const getQuery = (fieldName, operation, value) => {
@@ -183,8 +181,6 @@ const getLookUpPipeline = (from, variable, pipeline, as) => {
   json[dbOperationCons.FIELD_LOOKUP][dbOperationCons.FIELD_AS] = as
   return json
 }
-
-
 
 module.exports = {
   getQuery,

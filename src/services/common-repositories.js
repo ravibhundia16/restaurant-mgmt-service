@@ -2,6 +2,8 @@
 
 const dbOp = require('./db-operation')
 const _ = require('lodash')
+const dbCons = require('../constants/db-constants')
+require('../models/fooditems_restaurants')
 
 const getData = async (query, projection, collection) => {
   try {
@@ -32,8 +34,12 @@ const deleteData = async (query, collection) => {
 }
 
 const insertData = async (data, collection) => {
-  const response = await collection.insertMany(data)
-  return response
+  try {
+    const response = await collection.insertMany(data)
+    return response
+  } catch (error) {
+    throw error
+  }
 }
 
 const updateOne = async (query, data, collection) => {
@@ -48,7 +54,9 @@ const updateOne = async (query, data, collection) => {
 
 const getDataWithAggregate = async (query, collection) => {
   try {
-    const response = await collection.aggregate(query)
+    const db = await global.db.connect(dbCons.DATABASE_RESTAURANTS)
+    const model = db.model(collection)
+    const response = await model.aggregate(query)
     return response
   } catch (error) {
     throw error
