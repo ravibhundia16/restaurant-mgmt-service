@@ -7,30 +7,18 @@ const msgCons = require('../constants/msg-constants')
 const dbOp = require('./db-operation')
 const config = require('config')
 const { responseGenerator, errorGenerator } = require('../constants/utils')
-const mongo = require('mongodb').MongoClient
-const dbConfig = config.get('database')
+const commonRepo = require('./common-repositories')
 
-const insertDataIntoDb = async(collection, data) => {
+const insertDataIntoDb = async(data, collection, database) => {
   try {
-    mongo.connect(
-      dbConfig.host,
-      {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-      },
-      (error, client) => {
-        if (error) {
-          return errorGenerator(error, msgCons.CODE_INTERNAL_SERVER_ERROR, msgCons.MSG_ERROR_CONNECTING_DB, true)
-        } else {
-          let db = client.db(dbCons.DATABASE_RESTAURANTS)
-          const schema = db.collection(collection)
-          schema.insertMany(data)
-          return responseGenerator([], msgCons.CODE_SERVER_OK, msgCons.MSG_SUCCESS_INSERT_DATA, false)
-        }
-      }
-    )
+    const response = await commonRepo.insertData(data, collection, database)
+    if (response && Array.isArray(response) && response.length > 0) {
+      return responseGenerator(response, msgCons.CODE_SERVER_OK, msgCons.MSG_SUCCESS_FETCHED_DATA, false)
+    } else {
+      return responseGenerator(response, msgCons.CODE_NO_CONTENT_AVAILABLE, msgCons.MSG_ERROR_NO_DATA, false)
+    }
   } catch (error) {
-    return errorGenerator(error, msgCons.CODE_INTERNAL_SERVER_ERROR, msgCons.MSG_ERROR_IN_STORING_DATA, true)
+    throw error
   }
 }
 

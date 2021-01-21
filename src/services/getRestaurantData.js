@@ -18,20 +18,20 @@ const getRestaurantData = async (data, restaurantName, cusineName) => {
     let query
     switch (data) {
       case dbCons.COLLECTION_RESTAURANT_DETAILS:
-        query = queryForRestaurantDetails(restaurantName, cusineName)
+        query = await queryForRestaurantDetails(restaurantName, cusineName)
         break;
-      case dbCons.COLLECTION_CUSINE:
-        query = queryForCusineDetails(restaurantName, cusineName)
+      case dbCons.COLLECTION_CUSINES:
+        query = await queryForCusineDetails(restaurantName, cusineName)
         break;
     }
-    const response = await commonRepository.getDataWithAggregate(query, dbCons.COLLECTION_FOODITEMS_RESTAURANTS, dbCons.DATABASE_RESTAURANTS)
+    const response = await commonRepository.getDataWithAggregate(query, dbCons.COLLECTION_FOODITEMS_RESTAURANTS)
     if (response && Array.isArray(response) && response.length > 0) {
       return responseGenerator(response, msgCons.CODE_SERVER_OK, msgCons.MSG_SUCCESS_FETCHED_DATA, false)
     } else {
       return responseGenerator(response, msgCons.CODE_NO_CONTENT_AVAILABLE, msgCons.MSG_ERROR_NO_DATA, false)
     }
   } catch (error) {
-    return errorGenerator(error, msgCons.CODE_INTERNAL_SERVER_ERROR, msgCons.MSG_ERROR_FETCH_DATA, true)
+    throw error
   }
 }
 

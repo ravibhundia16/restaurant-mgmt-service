@@ -41,7 +41,7 @@ module.exports = {
   // /////////////////////////
 
   FIELD_ID: 'id',
-  COLLECTION_CUSINE: 'cusine',
+  COLLECTION_CUSINES: 'cusines',
   FIELD_CUSINE_IMAGE: 'cuisine_image',
 
   // /////////////////////////
