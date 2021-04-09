@@ -7,11 +7,11 @@ const msgCons = require('../constants/msg-constants')
 const dbOp = require('./db-operation')
 const config = require('config')
 const { responseGenerator, errorGenerator } = require('../constants/utils')
-const commonRepo = require('./common-repositories')
+const { commonRepository } = require('@ravibhundia/mongoose-db-repositories')
 
 const insertDataIntoDb = async(data, collection, database) => {
   try {
-    const response = await commonRepo.insertData(data, collection, database)
+    const response = await commonRepository.insertData(data, collection, database)
     if (response && Array.isArray(response) && response.length > 0) {
       return responseGenerator(response, msgCons.CODE_SERVER_OK, msgCons.MSG_SUCCESS_FETCHED_DATA, false)
     } else {
