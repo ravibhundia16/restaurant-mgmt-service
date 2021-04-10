@@ -24,7 +24,7 @@ const getRestaurantData = async (data, restaurantName, cusineName) => {
         query = await queryForCusineDetails(restaurantName, cusineName)
         break;
     }
-    const response = await commonRepository.getDataWithAggregate(query, dbCons.COLLECTION_FOODITEMS_RESTAURANTS)
+    const response = await commonRepository.getDataWithAggregate(query, dbCons.COLLECTION_FOODITEMS_RESTAURANTS, dbCons.DATABASE_RESTAURANTS)
     if (response && Array.isArray(response) && response.length > 0) {
       return responseGenerator(response, msgCons.CODE_SERVER_OK, msgCons.MSG_SUCCESS_FETCHED_DATA, false)
     } else {
