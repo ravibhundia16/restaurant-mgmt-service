@@ -22,5 +22,32 @@
       "useUnifiedTopology": true,
       "useFindAndModify": false
     }
+  },
+  "logs": {
+    "level": "debug",
+    "stream": "console",
+    "middleware": {
+      "logRequests": true,
+      "logResponses": true,
+      "exclusionList": []
+    },
+    "obfuscate": {
+      "enabled": true,
+      "masking_character": "*",
+      "types": {
+        "email": {
+          "find": "([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\\.[a-zA-Z0-9._-]+)",
+          "replace": "(?=.)[^@\n](?=[^@\n]*?@)"
+        },
+        "contact_number": {
+          "find": "(((\\+)[0-9]{3})|((\\+)[0-9]{2}))[1-9]{1}[0-9]{9}",
+          "replace": "(?=\\d{5})\\d"
+        }
+      },
+      "level_enabled": [
+        "info",
+        "debug"
+      ]
+    }
   }
 }

@@ -4,6 +4,7 @@ const _ = require('lodash')
 const mongoose = require('mongoose')
 mongoose.Promise = global.Promise
 const config = require('config')
+const logger = require('./logger')
 
 const connection = {}
 
@@ -18,7 +19,7 @@ module.exports = (opts) => {
     }
 
     connection[dbName] = await createNewConnection(this.opts, dbName)
-    console.log('DB connect successfully.');
+    logger.info(`Connected to ${dbName} Successfully`)
     return connection[dbName]
   }
 

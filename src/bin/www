@@ -8,13 +8,15 @@ const app = require('../app')
 const debug = require('debug')('moweb-service:server')
 const http = require('http')
 const config = require('config')
+const logger = require('../middleware/logger')
 
 /**
  * Get port from environment and store in Express.
  */
 
 const port = normalizePort(process.env.PORT || config.port || '3000')
-console.log('Restaurant mgmt service running on port: ', port)
+// console.log('Restaurant mgmt service running on port: ', port)
+logger.debug('Restaurant mgmt service running on port:', port)
 app.set('port', port)
 
 /**

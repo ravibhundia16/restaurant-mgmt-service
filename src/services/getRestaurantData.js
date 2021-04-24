@@ -10,6 +10,7 @@ const dbOperationCons = require('../constants/db-operation-constants')
 const msCons = require('../constants/ms-constants')
 const msgCons = require('../constants/msg-constants')
 const dbOp = require('./db-operation')
+const logger = require('../middleware/logger')
 const { responseGenerator, errorGenerator } = require('../constants/utils')
 const { commonRepository } = require('@ravibhundia/mongoose-db-repositories')
 
@@ -31,6 +32,7 @@ const getRestaurantData = async (data, restaurantName, cusineName) => {
       return responseGenerator(response, msgCons.CODE_NO_CONTENT_AVAILABLE, msgCons.MSG_ERROR_NO_DATA, false)
     }
   } catch (error) {
+    logger.error('Error while getRestaurantData():', error)
     throw error
   }
 }

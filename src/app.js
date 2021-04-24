@@ -2,7 +2,8 @@ let createError = require('http-errors')
 let express = require('express')
 let path = require('path')
 let cookieParser = require('cookie-parser')
-let logger = require('morgan')
+let Logger = require('morgan')
+const logger = require('./middleware/logger')
 const config = require('config')
 const urlCons = require('./constants/url-constants')
 const restaurantDataRoute = require('./routes/getRestaurantDataRoute')
@@ -20,7 +21,7 @@ global.db = dbUtil
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-app.use(logger('dev'))
+app.use(Logger('dev'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
