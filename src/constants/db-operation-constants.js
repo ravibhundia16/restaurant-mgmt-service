@@ -1,4 +1,9 @@
 module.exports = {
+
+  // * /////////////////////////
+  // * db opration field
+  // * /////////////////////////
+
   FIELD_PROJECTION: '$project',
   FIELD_MATCH: '$match',
   FIELD_LOOKUP: '$lookup',
@@ -31,6 +36,10 @@ module.exports = {
   FIELD_PIPELINE: 'pipeline',
   FIELD_ARRAY_ELEMENT_AT: '$arrayElemAt',
 
+  // * /////////////////////////
+  // * common db opration field
+  // * /////////////////////////
+
   OP_EQUAL: '$eq',
   OP_NOT_EQUAL: '$ne',
   OP_GTE: '$gte',
@@ -46,23 +55,22 @@ module.exports = {
   OP_SORT: '$sort',
   OP_SKIP: '$skip',
   OP_LIMIT: '$limit',
-  FIELD_INLINE: 'inline',
   OP_MR_SORT: 'sort',
   OP_MR_LIMIT: 'limit',
+  OP_EXISTS: '$exists',
+  OP_FILTER: '$filter',
+  OP_UPSERT: 'upsert',
+  OP_SET_DEFAULT_ON_INSERT: 'setDefaultsOnInsert',
+  OP_ALL: '$all',
+  FIELD_INLINE: 'inline',
   FIELD_QUERY: 'query',
   FIELD_REDUCE: 'reduce',
   FIELD_MAP: 'map',
   FIELD_OUT: 'out',
   FIELD_SCOPE: 'scope',
-  OP_EXISTS: '$exists',
   FIELD_UPDATE_ONE: 'updateOne',
   FIELD_FILTER: 'filter',
   FIELD_UPDATE: 'update',
-  OP_FILTER: '$filter',
   FIELD_INPUT: 'input',
   FIELD_CONDITION: 'cond',
-  OP_UPSERT: 'upsert',
-  OP_SET_DEFAULT_ON_INSERT: 'setDefaultsOnInsert',
-  OP_ALL: '$all'
-
 }

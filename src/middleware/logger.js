@@ -1,65 +1,50 @@
-'use strict'
-
-const debug = require('debug')('logger')
+const { format, createLogger, transports } = require('winston')
+const { timestamp, combine, printf, colorize } = format
 const config = require('config')
-const path = require('path')
-const bunyan = require('bunyan')
+const logs = config.get('logs')
+const logCons = require('../constants/log-constants')
 
-const appConfig = config.get('app')
-const logsConfig = config.get('logs')
-debug('logsConfig=%s', JSON.stringify(logsConfig))
+const logFormat = printf(({ level, timestamp, message }) => {
+  return `${timestamp} ${level}: ${message}`
+})
 
-const name = appConfig.name
-debug('name=%s', name)
-const configs = {
-  name,
-  streams: []
-}
+const logger = createLogger({
+  level: logs.level,
+  format: combine(
+    colorize(),
+    timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
+    logFormat
+  ),
+  transports: [new transports.Console()]
+})
 
-const logLevel = logsConfig.level
-
-
-if (logLevel !== 'off') {
-  switch (logsConfig.stream) {
-    case 'gelf':
-      const stream = require('gelf-stream').forBunyan(
-        logsConfig.gelf_hostname,
-        logsConfig.gelf_port
-      )
-      configs.streams.push({
-        type: 'raw',
-        stream: stream,
-        level: logLevel
-      })
-      configs.streams.push({
-        type: 'stream',
-        stream: process.stderr,
-        level: 'error'
-      })
+const printLog = (level, message, type) => {
+  if (typeof type !== 'undefined') {
+    switch (type) {
+      case 0:
+        message = logCons.LOG_ENTER + message
+        break
+      case 1:
+        message = logCons.LOG_EXIT + message
+        break
+    }
+  }
+  switch (level) {
+    case 'debug':
+      logger.debug(message)
       break
-    case 'rotating-file':
-      const logsDirectory = logsConfig.logs_directory || path.join(__dirname, '../../logs')
-      const logFilename = path.join(`${name}`, `${name}.json.log`)
-
-      configs.streams.push({
-        type: 'rotating-file',
-        path: path.join(logsDirectory, logFilename),
-        level: logLevel,
-        period: logsConfig.rotation_period,
-        count: logsConfig.max_rotated_files
-      })
+    case 'info':
+      logger.info(message)
       break
-    case 'console':
-    default:
-      configs.streams.push({
-        type: 'stream',
-        stream: process.stdout,
-        level: logLevel
-      })
+    case 'warn':
+      logger.warn(message)
+      break
+    case 'error':
+      logger.warn(message)
+      break
   }
 }
 
-debug('Creating logger instance')
-const logger = bunyan.createLogger(configs)
-
-module.exports = logger
+module.exports = {
+  printLog
+}

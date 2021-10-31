@@ -1,8 +1,8 @@
 module.exports = {
 
-  // /////////////////////////
-  // COMMON FIELDS
-  // /////////////////////////
+  // * /////////////////////////
+  // * COMMON FIELDS
+  // * /////////////////////////
 
   FIELD__ID: '_id',
   FIELD_CREATED_ON: 'created_on',
@@ -10,9 +10,9 @@ module.exports = {
   FIELD__V: '_v',
   DATABASE_RESTAURANTS: 'restaurants',
 
-  // /////////////////////////
-  // RESTAURANTS DETAILS
-  // /////////////////////////
+  // * /////////////////////////
+  // * RESTAURANTS DETAILS
+  // * /////////////////////////
 
   COLLECTION_RESTAURANT_DETAILS: 'restaurant_details',
   FIELD_STATUS: 'status',
@@ -36,17 +36,17 @@ module.exports = {
   FIELD_DINE_IN: 'dine_in',
   FIELD_MAX_PEOPLE: 'max_people',
 
-  // /////////////////////////
-  // CUSINE
-  // /////////////////////////
+  // * /////////////////////////
+  // * CUSINE
+  // * /////////////////////////
 
   FIELD_ID: 'id',
   COLLECTION_CUSINES: 'cusines',
   FIELD_CUSINE_IMAGE: 'cuisine_image',
 
-  // /////////////////////////
-  // FOOD ITEMS
-  // /////////////////////////
+  // * /////////////////////////
+  // * FOOD ITEMS
+  // * /////////////////////////
 
   COLLECTION_FOOD_ITEMS: 'food_items',
   FILED_POS_MENU_ID: 'pos_manu_id',
@@ -59,9 +59,9 @@ module.exports = {
   FIELD_QUANTITY: 'quantity',
   FIELD_IMAGE_URL: 'image_url',
 
-  // /////////////////////////
-  // FOOD ITEMS RESTAURANTS
-  // /////////////////////////
+  // * /////////////////////////
+  // * FOOD ITEMS RESTAURANTS
+  // * /////////////////////////
 
   COLLECTION_FOODITEMS_RESTAURANTS: 'fooditems_restaurants',
   FIELD_FOODITEM_NAME: 'fooditem_name',
@@ -77,9 +77,9 @@ module.exports = {
   FIELD_RESTAURANT_NAME: 'restaurant_name',
   FIELD_DATE: 'date',
 
-  // /////////////////////////
-  // CUSTOMIZATION GROUP 
-  // /////////////////////////
+  // * /////////////////////////
+  // * CUSTOMIZATION GROUP 
+  // * /////////////////////////
 
   COLLECTION_CUSTOMIZATION_GROUPS: 'customization_groups',
   FILED_POS_GROUP_ID: 'pos_group_id',

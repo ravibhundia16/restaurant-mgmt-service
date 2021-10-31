@@ -8,6 +8,7 @@ const config = require('config')
 const urlCons = require('./constants/url-constants')
 const restaurantDataRoute = require('./routes/getRestaurantDataRoute')
 const insertDataIntoDbRoute = require('./routes/insertDataIntoDbRoute')
+const cors = require('cors')
 
 let app = express();
 
@@ -21,6 +22,14 @@ global.db = dbUtil
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
+app.use('*', cors({
+  origin: '*',
+  preflightContinue: false,
+  methods: 'POST, GET, PUT, DELETE, OPTIONS',
+  optionsSuccessStatus: 204,
+  allowedHeaders: ['Origin, X-Requested-With, Content-Type, Accept, Authorization, token, orgName, user_code, File-Name'],
+  exposedHeaders: ['Authorization, File-Name']
+}))
 app.use(Logger('dev'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
@@ -30,12 +39,12 @@ app.use(urlCons.PARAM_API_PREFIX, restaurantDataRoute)
 app.use(urlCons.PARAM_API_PREFIX, insertDataIntoDbRoute)
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use((err, req, res, next) => {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

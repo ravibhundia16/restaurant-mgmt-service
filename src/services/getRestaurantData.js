@@ -9,6 +9,7 @@ const dbCons = require('../constants/db-constants')
 const dbOperationCons = require('../constants/db-operation-constants')
 const msCons = require('../constants/ms-constants')
 const msgCons = require('../constants/msg-constants')
+const logCons = require('../constants/log-constants')
 const dbOp = require('./db-operation')
 const logger = require('../middleware/logger')
 const { responseGenerator, errorGenerator } = require('../constants/utils')
@@ -16,6 +17,7 @@ const { commonRepository } = require('@ravibhundia/mongoose-db-repositories')
 
 const getRestaurantData = async (data, restaurantName, cusineName) => {
   try {
+    logger.printLog(logCons.LOG_LEVEL_INFO, 'getRestaurantData()', logCons.ENUM_LOG_ENTER)
     let query
     switch (data) {
       case dbCons.COLLECTION_RESTAURANT_DETAILS:
@@ -27,17 +29,19 @@ const getRestaurantData = async (data, restaurantName, cusineName) => {
     }
     const response = await commonRepository.getDataWithAggregate(query, dbCons.COLLECTION_FOODITEMS_RESTAURANTS, dbCons.DATABASE_RESTAURANTS)
     if (response && Array.isArray(response) && response.length > 0) {
+      logger.printLog(logCons.LOG_LEVEL_INFO, 'getRestaurantData()', logCons.ENUM_LOG_EXIT)
       return responseGenerator(response, msgCons.CODE_SERVER_OK, msgCons.MSG_SUCCESS_FETCHED_DATA, false)
     } else {
+      logger.printLog(logCons.LOG_LEVEL_INFO, 'getRestaurantData()', logCons.ENUM_LOG_EXIT)
       return responseGenerator(response, msgCons.CODE_NO_CONTENT_AVAILABLE, msgCons.MSG_ERROR_NO_DATA, false)
     }
   } catch (error) {
-    logger.error('Error while getRestaurantData():', error)
+    logger.printLog(logCons.LOG_LEVEL_ERROR, `Error while getRestaurantData(): ${error}`)
     throw error
   }
 }
 
-function queryForRestaurantDetails(restaurantName, cusineName) {
+const queryForRestaurantDetails = (restaurantName, cusineName) => {
   const queryArray = []
   if (restaurantName) {
     queryArray.push(dbOp.getMatchedResult(getMatchQueryForRestaurantName(restaurantName)))
@@ -49,20 +53,20 @@ function queryForRestaurantDetails(restaurantName, cusineName) {
   return queryArray
 }
 
-function queryForCusineDetails(restaurantName, cusineName) {
+const queryForCusineDetails = (restaurantName, cusineName) => {
   const queryArray = []
   queryArray.push(dbOp.getMatchedResult(getMatchQueryForFoodItems(restaurantName, cusineName)))
   queryArray.push(dbOp.getProjectedField(projectionForFoodItems()))
   return queryArray
 }
 
-function getMatchQueryForRestaurantName(restaurantName) {
+const getMatchQueryForRestaurantName = (restaurantName) => {
   const json = {}
   json[dbCons.FIELD_RESTAURANT_NAME] = restaurantName
   return json
 }
 
-function getGroupQueryForRestaurant() {
+const getGroupQueryForRestaurant = () => {
   const json = {}
   json[dbCons.FIELD__ID] = {}
   json[dbCons.FIELD__ID][dbCons.FIELD_RESTAURANT_NAME] = '$' + dbCons.FIELD_RESTAURANT_NAME
@@ -72,20 +76,20 @@ function getGroupQueryForRestaurant() {
   return json
 }
 
-function getLetObjectForRestaurant() {
+const getLetObjectForRestaurant = () => {
   const json = {}
   json[dbCons.FIELD_RESTAURANT_NAME] = '$' + dbCons.FIELD__ID + '.' + dbCons.FIELD_RESTAURANT_NAME
   return json
 }
 
-function getPipelineArrayForRestaurant() {
+const getPipelineArrayForRestaurant = () => {
   const finalArray = []
   finalArray.push(getMatchQueryForRestaurant())
   finalArray.push(dbOp.getProjectedField(dbOp.getCommonProjection()))
   return finalArray
 }
 
-function getMatchQueryForRestaurant() {
+const getMatchQueryForRestaurant = () => {
   const exprJson = {}
   const matchJson = {}
   const andArray = []
@@ -97,7 +101,7 @@ function getMatchQueryForRestaurant() {
   return dbOp.getAggregationJson(dbOperationCons.FIELD_MATCH, matchJson)
 }
 
-function getFinalProjectionForRestautantData() {
+const getFinalProjectionForRestautantData = () => {
   const json = {}
   json[dbCons.FIELD__ID] = false
   json[dbCons.FIELD_NAME] = '$' + dbCons.FIELD__ID + '.' + dbCons.FIELD_RESTAURANT_NAME
@@ -118,7 +122,7 @@ function getFinalProjectionForRestautantData() {
   return json
 }
 
-function getMatchQueryForFoodItems(restaurantName, cusineName) {
+const getMatchQueryForFoodItems = (restaurantName, cusineName) => {
   const json = {}
   json[dbCons.FIELD_RESTAURANT_NAME] = restaurantName
   if (cusineName) {
@@ -127,7 +131,7 @@ function getMatchQueryForFoodItems(restaurantName, cusineName) {
   return json
 }
 
-function projectionForFoodItems() {
+const projectionForFoodItems = () => {
   const json = {}
   json[dbCons.FIELD__ID] = false
   json[dbCons.FIELD_CUSINE_NAME] = true
@@ -138,7 +142,7 @@ function projectionForFoodItems() {
   json[dbCons.FIELD_SPECIAL_PRICE] = true
   json[dbCons.FIELD_DISCOUNT] = true
   json[dbCons.FIELD_DISCOUNT_PERCENT] = true
-  return json  
+  return json
 }
 
 module.exports = {

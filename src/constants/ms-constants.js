@@ -1,8 +1,8 @@
 module.exports = {
 
-  // ///////////////////////
-  // Restaurants Name
-  // ///////////////////////
+  // * /////////////////////////
+  // * Restaurants Name
+  // * /////////////////////////
 
   RES_KITIMOTO_MASTERZ: 'Kitimoto Masterz',
   RES_TAA_MARINDA: 'Taa - Marinda',
